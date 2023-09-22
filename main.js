@@ -17,7 +17,6 @@ fetch('DB/department.json')
 		return data.json();
 	})
 	.then((json) => {
-		console.log(json.members);
 		let tags = '';
 		json.members.map((data) => {
 			tags += `
@@ -25,6 +24,8 @@ fetch('DB/department.json')
           <div class='pic'>
             <img src='img/${data.pic}'>
           </div>
+          <h2>${data.name}</h2>
+          <p>${data.position}</p>
         </article>  
       `;
 		});
