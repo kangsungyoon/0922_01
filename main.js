@@ -8,17 +8,12 @@ rejected : 작업의 요청이 거절된 상태
 작업시간이 오래걸리는 업무를 수행할때 프라미스로 반환하면
 해당 작업 완료이후 동기적으로 다음 작업을 선형화해서 수행 (es6)
 */
-const result = fetch('DB/department.json')
-	.then((data) => {
-		//이전 메서드에서 반환된 프로미스가 fullfiled 상태일때 실행
-		console.log(data); // json형태로 parsing되지 않은 raw data
-		const result = data.json(); // json 형태로 변환시 promise로 반환
-		result.then((json) => {
-			console.log(json); // json로 반환된 데이터를 then으로 확인
+fetch('DB/department.json')
+	.then((data) => { 
+    // 첫번째 then 구문에 받아진 promise를 다시 바로 리턴하면
+    // 두번째 then구문에서 해당 데이터를 동기적으로 활용가능
+    return data.json()
 		});
-	})
-	.catch((err) => {
-		//이전매서드에서 반환된 프로미스가 rejected 상태일때 실행
-		// 오류가 발생했을떄 funtime에러가 발생하지 않도록 예외사항을 준비
+  .catch((err) => {
 		console.log(err);
 	});
